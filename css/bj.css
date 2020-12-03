@@ -1,4 +1,4 @@
-#card {
+#card, #card-hidden, #card-red, #card-hidden-red {
     border: 3px solid #000000;
     display: inline-block;
     padding: 5px;
@@ -8,7 +8,23 @@
     margin-right: 5px;
 }
 
-#numL {
+#card, #card-red {
+    background-color: #FFFFFF;
+}
+
+#card-hidden, #card-hidden-red {
+    background-color: #0095FF;
+}
+
+#card, #card-hidden {
+    color: #000000;
+}
+
+#card-red, #card-hidden-red {
+    color: #FF0000;
+}
+
+#card #numL, #card-hidden #numL, #card-red #numL, #card-hidden-red #numL {
     display: block;
     font-size: 28px;
     margin-left: 5px;
@@ -16,7 +32,7 @@
     font-family: 'Varela Round', sans-serif;
 }
 
-#numR {
+#card #numR, #card-hidden #numR, #card-red #numR, #card-hidden-red #numR {
     display: block;
     font-size: 28px;
     margin-right: 5px;
@@ -24,9 +40,17 @@
     font-family: 'Varela Round', sans-serif;
 }
 
-#suit {
+#card #suit, #card-hidden #suit, #card-red #suit, #card-hidden-red #suit {
     display: block;
     font-size: 80px;
     text-align: center;
     margin: -10px;
+}
+
+#card #numL, #card #numR, #card #suit, #card-red #numL, #card-red #numR, #card-red #suit {
+    visibility: visible;
+}
+
+#card-hidden #numL, #card-hidden #numR, #card-hidden #suit, #card-hidden-red #numL, #card-hidden-red #numR, #card-hidden-red #suit {
+    visibility: hidden;
 }

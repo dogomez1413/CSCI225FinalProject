@@ -34,7 +34,7 @@ function decodeCard(cardNum) {
     }
     return [(cardNum % 13) + 1, Math.floor(cardNum / 13), stringNum + " of " + suits[Math.floor(cardNum / 13)]];
 }
-function drawCard(cardNum) {
+function drawCard(cardNum, hidden) {
     var cardVals = decodeCard(cardNum);
     var suitSymbols = ["&spades;", "&clubs;", "&hearts;", "&diams;"];
     var numLetter;
@@ -55,12 +55,14 @@ function drawCard(cardNum) {
             numLetter = String(cardVals[0]);
             break;
     }
-    var color = (cardVals[1] < 2 ? "#000000" : "#FF0000");
-    $("#plrCardArea").append("<div id = 'card' style = 'color: " + color + "'><span id = 'numL'>" + numLetter + "</span><span id = 'suit'>" + suitSymbols[cardVals[1]] + "</span><span id = 'numR'>" + numLetter + "</span></div>");
+    var id = (hidden ? "card-hidden" : "card") + (cardVals[1] < 2 ? "" : "-red");
+    $("#plrCardArea").append("<div id = '" + id + "'><span id = 'numL'>" + numLetter + "</span><span id = 'suit'>" + suitSymbols[cardVals[1]] + "</span><span id = 'numR'>" + numLetter + "</span></div>");
 }
-drawCard(0);
-drawCard(13);
-drawCard(26);
-drawCard(39);
-drawCard(21);
-drawCard(36);
+drawCard(0, false);
+drawCard(13, false);
+drawCard(26, false);
+drawCard(39, false);
+drawCard(21, false);
+drawCard(36, false);
+drawCard(44, true)
+drawCard(9, true)
