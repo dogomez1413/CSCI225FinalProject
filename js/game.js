@@ -56,11 +56,13 @@ function genCard(cardNum, plr, hidden) {
             break;
     }
     var player = (plr ? "#plrCardArea" : "#cpuCardArea")
-    var id = (hidden ? "card-hidden" : "card") + (cardVals[1] < 2 ? "" : "-red");
-    $(player).append("<div id = '" + id + "' value = '" + cardVals[0] + "'><span id = 'numL'>" + numLetter + "</span><span id = 'suit'>" + suitSymbols[cardVals[1]] + "</span><span id = 'numR'>" + numLetter + "</span></div>");
+    var id = (cardVals[1] < 2 ? "card" : "card-red");
+    var className = (hidden ? "hidden" : "");
+    $(player).append("<div id = '" + id + "' value = '" + cardVals[0] + "' class = '" + className + "'><span id = 'numL'>" + numLetter + "</span><span id = 'suit'>" + suitSymbols[cardVals[1]] + "</span><span id = 'numR'>" + numLetter + "</span></div>");
+    return cardVals;
     //console.log((plr ? "Player" : "Computer") + " drew a " + cardVals[2] + "\nCard value: " + cardVals[0] + "\nSuit index number: " + cardVals[1] + " = " + suitSymbols[cardVals[1]] + "\nCard hidden: " + hidden);
 }
-function game() {
+function blackJack() {
     var cards = generateRandomCards();
     var currIndex = 0;
     var plrScore = 0;
@@ -68,7 +70,7 @@ function game() {
     var plrBust = false;
     var cpuBust = false;
     for (var i = 0; i < 4; i++) {
-        genCard(cards[currIndex], i < 2, i == 3);
+        var cardVals = genCard(cards[currIndex], i < 2, i == 3);
         currIndex++;
     }
     updateScore();
@@ -76,17 +78,37 @@ function game() {
         plrScore = cpuScore = 0;
         $("#plrCardArea div").each(function() {
             var val = parseInt($(this).attr("value"));
-            plrScore += (val > 10 ? 10 : val);
+            if (val == 1) {
+                if (21 - plrScore >= 11) {
+                    plrScore += 11;
+                    $("#numL", this).html("A<p style = 'font-size: 20px; display: inline;'>(11)</p>");
+                } else {
+                    plrScore += 1;
+                    $("#numL", this).html("A<p style = 'font-size: 20px; display: inline;'>(1)</p>");
+                }
+            } else {
+                plrScore += (val > 10 ? 10 : val);
+            }
         });
         $("#cpuCardArea div").each(function() {
             var val = parseInt($(this).attr("value"));
-            cpuScore += (val > 10 ? 10 : val);
+            if (val == 1) {
+                if (21 - cpuScore >= 11) {
+                    cpuScore += 11;
+                    $("#numL", this).html("A<p style = 'font-size: 20px; display: inline;'>(11)</p>");
+                } else {
+                    cpuScore += 1;
+                    $("#numL", this).html("A<p style = 'font-size: 20px; display: inline;'>(1)</p>");
+                }
+            } else {
+                cpuScore += (val > 10 ? 10 : val);
+            }
         });
-        //console.log("Updated scores\nPlr: " + plrScore + "\nComp: " + cpuScore);
+        console.log("Updated scores\nPlr: " + plrScore + "\nComp: " + cpuScore);
         return [plrScore, cpuScore];
     }
     function hit(plr) {
-        genCard(cards[currIndex], plr, false);
+        var cardVals = genCard(cards[currIndex], plr, false);
         currIndex++;
         var scores = updateScore();
         if (plr && scores[0] > 21) {
@@ -103,7 +125,7 @@ function game() {
             currScore = updateScore()[1];
         }
         cpuBust = currScore > 21
-        $("#cpuCardArea div[id *= 'hidden']").attr("id", String($("#cpuCardArea div[id *= 'hidden']").attr("id")).replace("-hidden", ""));
+        $("#cpuCardArea div[class = 'hidden']").removeClass("hidden");
         gameEnd();
     }
     function gameEnd() {
@@ -137,4 +159,4 @@ function game() {
         cpu();
     });
 }
-game()
+blackJack();
