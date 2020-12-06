@@ -136,11 +136,11 @@ function blackJack() {
             } else if (plrBust) {
                 $("#winner").text("You lose!");
             } else {
-                $("#winner").text("You're winner!");
+                $("#winner").text("You win!");
             }
         } else {
             if (scores[0] > scores[1]) {
-                $("#winner").text("You're winner!");
+                $("#winner").text("You win!");
             } else if (scores[0] < scores[1]) {
                 $("#winner").text("You lose!");
             } else {
@@ -148,7 +148,21 @@ function blackJack() {
             }
         }
         $("#hit").off("click");
+        $("#hit").css("visibility", "visible");
+        $("#hit").text("Restart");
+        $("#hit").click(function() {
+            reset();
+        });
         $("#stand").off("click");
+    }
+    function reset() {
+        $("#stand").css("visibility", "visible");
+        $("#hit").off("click");
+        $("#hit").text("Hit");
+        $("#plrCardArea").empty();
+        $("#cpuCardArea").empty();
+        $("#winner").text("");
+        blackJack();
     }
     $("#hit").click(function() {
         hit(true);
