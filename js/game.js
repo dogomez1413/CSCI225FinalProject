@@ -173,4 +173,43 @@ function blackJack() {
         cpu();
     });
 }
+function slotMachine() {
+    var winZones = [0, 80, 165, 237, 310, 378, 454];
+    var heightClamp = 454;
+    var updateRate = 120;
+    var numReels = 3;
+    var activeReels = 0;
+    function startSpin() {
+        activeReels = numReels;
+        var spinRate = 0.5;
+        var maxVariation = 3.0;
+        $("#slotMachine div").each(function(i) {
+            setInterval(function() {
+                var obj = $("#slotMachine div[id = 'slotReel" + String(i + 1) + "']");
+                obj.css("background-position-y", (parseInt(obj.css("background-position-y")) + (((spinRate + (parseInt(Math.random() * ((maxVariation * 100) + 1)) / 100)) * heightClamp) / updateRate)) % heightClamp);
+            }, 1000 / updateRate)
+        })
+    }
+    function stopSpin() {
+        var delayBetweenStops = 0.5;
+        window.clearInterval((numReels + 1) - activeReels);
+        var currReel = $("#slotMachine div[id = 'slotReel" + String((numReels + 1) - activeReels) + "']");
+        var pos = parseInt(currReel.css("background-position-y"));
+        var closest = 0;
+        for (var i = 1; i < winZones.length; i++) {
+            if (Math.abs(pos - winZones[i]) < Math.abs(pos - winZones[closest])) {
+                closest = i;
+            }
+        }
+        currReel.css("background-position-y", winZones[closest]);
+        //console.log(winZones[closest])
+        activeReels--;
+        if (activeReels > 0) {
+            setTimeout(stopSpin, delayBetweenStops * 1000);
+        }
+    }
+    startSpin();
+    setTimeout(stopSpin, 3000);
+}
 blackJack();
+slotMachine();
