@@ -8,19 +8,34 @@
         <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
     </head>
     <body>
-        <a href = "index.html" style = "display: block; margin-bottom: 8px; font-family: 'Varela Round', sans-serif;">Temporary home page button</a>
+        <span href = "" id = "loginText">You are not currently logged in</span>
+        <a href = "" id = "loginState">Login</a>
         <div id = "blackjack">
+            <div id = "dummyCard">52</div>
             <div id = "cpuCardArea"></div>
             <div id = "plrCardArea"></div>
+            <input type = "text" id = "bjBet" maxlength = "8" size = "6" placeholder = "Bet">
             <button type = "button" id = "hit">Hit</button>
             <button type = "button" id = "stand">Stand</button>
-            <h1 id = "winner" style = "font-family: 'Varela Round', sans-serif;"></h1>
+            <h1 id = "winner"></h1>
         </div>
         <div id = "slotMachine">
+            <span id = "decoText">Slots</span>
+            <div id = "decorationBox"></div>
             <div id = "slotReel1" value></div>
             <div id = "slotReel2" value></div>
-            <div id = "slotReel3" value></div>
+            <div id = "slotReel3" value></div><br>
+            <button type = "button" id = "betBtn1">Bet 10</button>
+            <button type = "button" id = "betBtn2">Bet 50</button>
+            <button type = "button" id = "betBtn3">Bet 100</button>
+            <button type = "button" id = "betBtn4">Bet 250</button><br>
+            <span id = "chips">Chips: 5000</span>
+            <span id = "payout">Payout: 0</span>
         </div>
     </body>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
     <script src = "js/game.js"></script>
 </html>
