@@ -281,7 +281,7 @@ function slotMachine() {
             reelIDs[reelIDs.length] = id;
         })
         setTimeout(stopSpin, 1000 + parseInt(Math.random() * 4001));
-        console.log(reelIDs)
+        //console.log(reelIDs)
     }
     function stopSpin() {
         var delayBetweenStops = 0.5;
