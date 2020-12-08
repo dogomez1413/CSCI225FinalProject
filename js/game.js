@@ -17,10 +17,8 @@ var user = null;
 var userData = null;
 var localChips = startingChips;
 function giveMeLotsOfMoneyPleaseOkayCoolThanks() { //Debug
-    if (user != null) {
-        localChips += 100000;
-        updateData();
-    }
+    localChips += 100000;
+    updateData();
 }
 function updateData() {
     if (user != null) {
