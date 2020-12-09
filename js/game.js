@@ -55,11 +55,11 @@ auth.getRedirectResult().then(function(result) {
             }
             userData = doc.data();
             localChips = userData.chips;
+            updateData();
         }).catch(function(err) {
             console.log("An unexpected error occurred\nCode: " + err.code + "\nMessage: " + err.message);
         });
     }
-    updateData();
 }).catch(function(err) {
     console.log("An unexpected error occurred\nCode: " + err.code + "\nMessage: " + err.message);
 });
