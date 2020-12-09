@@ -44,22 +44,22 @@ auth.getRedirectResult().then(function(result) {
                 console.log("An unexpected error occurred\nCode: " + err.code + "\nMessage: " + err.message);
             })
         });
+        //console.log(user);
+        collection.doc(user.uid).get().then(function(doc) {
+            if (!doc.exists) {
+                collection.doc(user.uid).set({
+                    email: user.email,
+                    dispName: user.displayName,
+                    chips: startingChips
+                })
+            }
+            userData = doc.data();
+            localChips = userData.chips;
+        }).catch(function(err) {
+            console.log("An unexpected error occurred\nCode: " + err.code + "\nMessage: " + err.message);
+        });
     }
-    //console.log(user);
-    collection.doc(user.uid).get().then(function(doc) {
-        if (!doc.exists) {
-            collection.doc(user.uid).set({
-                email: user.email,
-                dispName: user.displayName,
-                chips: startingChips
-            })
-        }
-        userData = doc.data();
-        localChips = userData.chips;
-        updateData();
-    }).catch(function(err) {
-        console.log("An unexpected error occurred\nCode: " + err.code + "\nMessage: " + err.message);
-    });
+    updateData();
 }).catch(function(err) {
     console.log("An unexpected error occurred\nCode: " + err.code + "\nMessage: " + err.message);
 });
