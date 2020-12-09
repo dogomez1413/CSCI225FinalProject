@@ -52,10 +52,11 @@ auth.getRedirectResult().then(function(result) {
                     dispName: user.displayName,
                     chips: startingChips
                 })
+            } else {
+                userData = doc.data();
+                localChips = userData.chips;
+                updateData();
             }
-            userData = doc.data();
-            localChips = userData.chips;
-            updateData();
         }).catch(function(err) {
             console.log("An unexpected error occurred\nCode: " + err.code + "\nMessage: " + err.message);
         });
