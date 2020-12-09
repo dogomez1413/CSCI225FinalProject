@@ -136,6 +136,11 @@ div.aboutUs {
   box-shadow: 10px 10px 10px black;
 }
 
+div.aboutUs > p {
+  padding-left: 30px;
+  padding-bottom: 20px;
+}
+
 img{
   padding-left: 100px;
   padding-bottom: 40px;
